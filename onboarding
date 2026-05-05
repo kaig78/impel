@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome, Nontokozo | Impel Talent × Claude</title>
+
+  <!-- Google Fonts (matching Canvas style) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --canvas-primary:   #1b6fe6;
+      --canvas-dark:      #1a1f2e;
+      --canvas-accent:    #f97316;
+      --canvas-light-bg:  #f7f8fc;
+      --canvas-muted:     #6b7280;
+      --canvas-border:    #e5e7eb;
+      --impel-green:      #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', 'Inter', sans-serif;
+      color: #1a1f2e;
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── TOPBAR ── */
+    #topbar {
+      background: var(--canvas-dark);
+      color: #adb5bd;
+      font-size: 0.8rem;
+      padding: 8px 0;
+      letter-spacing: .04em;
+    }
+    #topbar a { color: #adb5bd; text-decoration: none; }
+    #topbar a:hover { color: #fff; }
+
+    /* ── HEADER ── */
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--canvas-border);
+      padding: 14px 0;
+    }
+    .brand-logo {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--canvas-dark);
+      text-decoration: none;
+      letter-spacing: -.02em;
+    }
+    .brand-logo span { color: var(--canvas-primary); }
+    .header-badge {
+      display: inline-block;
+      background: var(--canvas-light-bg);
+      border: 1px solid var(--canvas-border);
+      color: var(--canvas-muted);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      background: linear-gradient(135deg, var(--canvas-dark) 0%, #0f172a 60%, #1e3a5f 100%);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(27,111,230,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(249,115,22,0.12) 0%, transparent 50%);
+    }
+    .hero-eyebrow {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--canvas-accent);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+    .hero-date-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-date-card .date-icon {
+      width: 48px; height: 48px;
+      background: var(--canvas-primary);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: #fff; flex-shrink: 0;
+    }
+    .hero-date-card .date-text { font-size: .85rem; color: rgba(255,255,255,0.55); }
+    .hero-date-card .date-main { font-size: 1rem; font-weight: 700; color: #fff; }
+
+    /* floating graphic */
+    .hero-graphic {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-graphic .main-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      width: 320px;
+      backdrop-filter: blur(20px);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .ai-chat-bubble {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      font-size: .85rem;
+      color: rgba(255,255,255,0.85);
+      border-left: 3px solid var(--canvas-primary);
+    }
+    .ai-chat-bubble.user-bubble {
+      border-left: 3px solid var(--canvas-accent);
+      text-align: right;
+    }
+    .ai-label {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 5px;
+    }
+
+    /* ── SECTION SHARED ── */
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--canvas-primary);
+      margin-bottom: .5rem;
+    }
+    .section-heading {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      line-height: 1.2;
+      color: var(--canvas-dark);
+    }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--canvas-muted);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    /* ── WHAT YOU'LL LEARN ── */
+    #learn {
+      background: var(--canvas-light-bg);
+      padding: 90px 0;
+    }
+    .learn-card {
+      background: #fff;
+      border: 1px solid var(--canvas-border);
+      border-radius: 16px;
+      padding: 28px;
+      height: 100%;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .learn-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+      border-color: var(--canvas-primary);
+    }
+    .learn-card .card-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+    .learn-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--canvas-dark);
+      margin-bottom: 8px;
+    }
+    .learn-card p {
+      font-size: .9rem;
+      color: var(--canvas-muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .learn-card .lesson-num {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--canvas-muted);
+      margin-bottom: 10px;
+      opacity: .6;
+    }
+
+    /* ── PREP CHECKLIST ── */
+    #prepare {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .checklist-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 20px 24px;
+      background: var(--canvas-light-bg);
+      border: 1px solid var(--canvas-border);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .checklist-item:hover {
+      border-color: var(--canvas-primary);
+      box-shadow: 0 4px 20px rgba(27,111,230,.08);
+    }
+    .checklist-item .check-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .checklist-item .check-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    .checklist-item h4 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: .98rem;
+      margin: 0 0 5px 0;
+      color: var(--canvas-dark);
+    }
+    .checklist-item p {
+      font-size: .87rem;
+      color: var(--canvas-muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .checklist-item a {
+      color: var(--canvas-primary);
+      font-weight: 600;
+    }
+    .step-required { background: #fef3c7; color: #92400e; }
+    .step-recommended { background: #dcfce7; color: #166534; }
+    .step-optional { background: #e0e7ff; color: #3730a3; }
+
+    /* progress stepper */
+    .prep-steps {
+      counter-reset: step-counter;
+    }
+    .checklist-item .step-number {
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--canvas-muted);
+      opacity: .5;
+      margin-bottom: 4px;
+    }
+
+    /* ── TIMELINE / AGENDA ── */
+    #agenda {
+      background: var(--canvas-dark);
+      padding: 90px 0;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      padding-bottom: 32px;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .tl-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--canvas-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-time {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--canvas-accent);
+      margin-bottom: 4px;
+    }
+    .tl-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    .tl-desc {
+      font-size: .87rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+
+    /* ── CTA ── */
+    #cta {
+      background: linear-gradient(135deg, var(--canvas-primary) 0%, #6366f1 100%);
+      padding: 80px 0;
+    }
+    #cta h2 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: #fff;
+    }
+    .cta-btn {
+      background: #fff;
+      color: var(--canvas-primary);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      color: var(--canvas-primary);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--canvas-dark);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 32px 0;
+    }
+    footer .footer-brand {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: .82rem; margin: 0; }
+
+    /* ── UTILITIES ── */
+    .bg-blue-soft { background: rgba(27,111,230,0.1); }
+    .bg-orange-soft { background: rgba(249,115,22,0.1); }
+    .bg-green-soft { background: rgba(22,163,74,0.1); }
+    .bg-purple-soft { background: rgba(139,92,246,0.1); }
+    .bg-pink-soft { background: rgba(236,72,153,0.1); }
+    .bg-teal-soft { background: rgba(20,184,166,0.1); }
+    .text-blue { color: var(--canvas-primary); }
+    .text-orange { color: var(--canvas-accent); }
+    .text-green { color: var(--impel-green); }
+    .text-purple { color: #8b5cf6; }
+    .text-pink { color: #ec4899; }
+    .text-teal { color: #14b8a6; }
+
+    .divider-line {
+      height: 1px;
+      background: var(--canvas-border);
+      margin: 0;
+    }
+
+    /* scroll reveal effect */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span><i class="bi-geo-alt-fill me-1"></i> Impel Talent · South Africa</span>
+        <span>Questions? <a href="mailto:kai.groeteke@gmail.com">Contact Kai</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="#" class="brand-logo">Impel<span>Talent</span></a>
+        <div class="d-flex align-items-center gap-3">
+          <span class="header-badge d-none d-sm-inline">Session Prep Guide</span>
+          <a href="#prepare" class="btn btn-sm btn-primary rounded-pill px-3">
+            Get Ready <i class="bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container position-relative">
+      <div class="row align-items-center g-5">
+
+        <div class="col-lg-6">
+          <p class="hero-eyebrow reveal">
+            <i class="bi-stars me-2"></i>Your Personal AI Intro Session
+          </p>
+          <h1 class="hero-title reveal">
+            Welcome,<br>
+            <span class="highlight">Nontokozo.</span><br>
+            Let's build<br>your website.
+          </h1>
+          <p class="hero-subtitle reveal">
+            You're about to discover how Claude — Anthropic's AI — can help you create a professional website and automate everyday tasks. No prior experience needed.
+          </p>
+
+          <div class="reveal">
+            <div class="hero-date-card">
+              <div class="date-icon">
+                <i class="bi-calendar-event-fill"></i>
+              </div>
+              <div>
+                <div class="date-text">Your session with Kai</div>
+                <div class="date-main">Next Week &nbsp;·&nbsp; Online via Claude Desktop</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="hero-graphic reveal">
+            <div class="main-card">
+              <div style="font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:16px;">
+                <i class="bi-robot me-1"></i> Claude Desktop Preview
+              </div>
+
+              <div class="ai-chat-bubble">
+                <div class="ai-label">You</div>
+                Create a homepage for Impel Talent with a hero section and contact form.
+              </div>
+              <div class="ai-chat-bubble">
+                <div class="ai-label">Claude</div>
+                Sure! Here's your homepage — I've added a hero, services section, and a working contact form. Want me to adjust the colours?
+              </div>
+              <div class="ai-chat-bubble">
+                <div class="ai-label">You</div>
+                Yes, use green and white — our brand colours.
+              </div>
+              <div class="ai-chat-bubble">
+                <div class="ai-label">Claude</div>
+                Done! Your updated site is saved. Preview it anytime. ✓
+              </div>
+
+              <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top:16px; padding-top:14px; font-size:.75rem; color:rgba(255,255,255,0.3); text-align:center;">
+                <i class="bi-shield-check me-1"></i> Powered by Anthropic Claude
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU'LL LEARN -->
+  <section id="learn">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-label">The Session</div>
+        <h2 class="section-heading mb-3">What You'll Learn</h2>
+        <p class="section-lead mx-auto">
+          In one focused session you'll go from zero to having your very own website — built with the help of Claude AI on your Windows PC.
+        </p>
+      </div>
+
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="learn-card">
+            <div class="lesson-num">Module 01</div>
+            <div class="card-icon bg-blue-soft text-blue">
+              <i class="bi-laptop"></i>
+            </div>
+            <h3>Introducing Claude Desktop</h3>
+            <p>Get to know Claude — Anthropic's AI assistant — and how the desktop app works on Windows. You'll understand what it can do and how to talk to it naturally.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="learn-card">
+            <div class="lesson-num">Module 02</div>
+            <div class="card-icon bg-orange-soft text-orange">
+              <i class="bi-chat-dots"></i>
+            </div>
+            <h3>Prompting Like a Pro</h3>
+            <p>Learn the simple art of giving Claude clear instructions. You'll practise writing prompts that get exactly the result you want — first time, every time.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="learn-card">
+            <div class="lesson-num">Module 03</div>
+            <div class="card-icon bg-green-soft text-green">
+              <i class="bi-globe"></i>
+            </div>
+            <h3>Building Your Website</h3>
+            <p>Claude will help you create a real, working website from scratch. You'll design the layout, choose colours, and add content — all through conversation.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="learn-card">
+            <div class="lesson-num">Module 04</div>
+            <div class="card-icon bg-purple-soft text-purple">
+              <i class="bi-folder2-open"></i>
+            </div>
+            <h3>Working with Files</h3>
+            <p>See how Claude can read, write, and organise files on your computer. You'll save your website, create documents, and manage your project folder — hands-free.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="learn-card">
+            <div class="lesson-num">Module 05</div>
+            <div class="card-icon bg-teal-soft text-teal">
+              <i class="bi-lightning-charge"></i>
+            </div>
+            <h3>Automating Everyday Tasks</h3>
+            <p>Discover how AI can handle repetitive work — drafting emails, summarising documents, preparing reports — so you can focus on the things that matter at Impel Talent.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="learn-card">
+            <div class="lesson-num">Module 06</div>
+            <div class="card-icon bg-pink-soft text-pink">
+              <i class="bi-rocket-takeoff"></i>
+            </div>
+            <h3>Next Steps & Resources</h3>
+            <p>Leave the session with a personal action plan, a list of tips & tricks, and the confidence to keep building on your own — with Claude as your always-available assistant.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+  <!-- PREPARE CHECKLIST -->
+  <section id="prepare">
+    <div class="container">
+      <div class="row align-items-start g-5">
+
+        <div class="col-lg-4 reveal">
+          <div class="section-label">Before We Meet</div>
+          <h2 class="section-heading mb-3">Prepare Your Windows PC</h2>
+          <p class="section-lead">
+            Please complete these steps <strong>before our session</strong>. It only takes about 15–20 minutes and ensures we can hit the ground running together.
+          </p>
+          <div class="mt-4 p-3 rounded-3 border" style="background: #fffbeb; border-color: #fcd34d !important;">
+            <div class="d-flex gap-2 align-items-start">
+              <i class="bi-exclamation-triangle-fill text-warning mt-1"></i>
+              <div style="font-size:.87rem; color:#78350f;">
+                <strong>Important:</strong> Steps 1 and 2 are required. Without them, we won't be able to start the session.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+
+          <!-- Step 1 -->
+          <div class="checklist-item reveal">
+            <div class="check-icon bg-blue-soft text-blue">
+              <i class="bi-person-plus-fill"></i>
+            </div>
+            <div>
+              <div class="step-number">Step 1</div>
+              <span class="check-badge step-required">Required</span>
+              <h4>Create a free Anthropic account</h4>
+              <p>Go to <a href="https://claude.ai" target="_blank">claude.ai</a> and sign up with your email address. Choose the <strong>free plan</strong> — it's all you need for our session. Keep your login details safe.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="checklist-item reveal">
+            <div class="check-icon bg-blue-soft text-blue">
+              <i class="bi-download"></i>
+            </div>
+            <div>
+              <div class="step-number">Step 2</div>
+              <span class="check-badge step-required">Required</span>
+              <h4>Download & install Claude Desktop for Windows</h4>
+              <p>Visit <a href="https://claude.ai/download" target="_blank">claude.ai/download</a>, click <strong>"Download for Windows"</strong>, and install the app. Once installed, log in with the account you created in Step 1.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="checklist-item reveal">
+            <div class="check-icon bg-green-soft text-green">
+              <i class="bi-folder-plus"></i>
+            </div>
+            <div>
+              <div class="step-number">Step 3</div>
+              <span class="check-badge step-recommended">Recommended</span>
+              <h4>Create a project folder on your Desktop</h4>
+              <p>Right-click your Desktop → <strong>New → Folder</strong> → name it <code>My Website</code>. This is where Claude will save all the files we create together during the session.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="checklist-item reveal">
+            <div class="check-icon bg-green-soft text-green">
+              <i class="bi-browser-chrome"></i>
+            </div>
+            <div>
+              <div class="step-number">Step 4</div>
+              <span class="check-badge step-recommended">Recommended</span>
+              <h4>Make sure you have Google Chrome or Microsoft Edge</h4>
+              <p>You'll need a modern browser to preview your website. Both <strong>Chrome</strong> and <strong>Edge</strong> come pre-installed on most Windows PCs. If you're not sure which you have, open the Start menu and search for "Chrome" or "Edge".</p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="checklist-item reveal">
+            <div class="check-icon bg-blue-soft text-blue">
+              <i class="bi-wifi"></i>
+            </div>
+            <div>
+              <div class="step-number">Step 5</div>
+              <span class="check-badge step-recommended">Recommended</span>
+              <h4>Test your internet connection</h4>
+              <p>Claude Desktop needs an internet connection to work. Make sure your connection is stable on the day of our session. A home Wi-Fi or mobile hotspot both work fine.</p>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="checklist-item reveal">
+            <div class="check-icon bg-purple-soft text-purple">
+              <i class="bi-lightbulb"></i>
+            </div>
+            <div>
+              <div class="step-number">Step 6</div>
+              <span class="check-badge step-optional">Bonus</span>
+              <h4>Think about your website idea</h4>
+              <p>What would you like your website to be about? It could be a personal portfolio, a landing page for Impel Talent, or anything else you're excited about. Come with a rough idea — Claude will do the rest!</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION AGENDA -->
+  <section id="agenda">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-label" style="color: var(--canvas-accent);">Our Plan</div>
+        <h2 class="section-heading mb-3" style="color:#fff;">Session Agenda</h2>
+        <p class="section-lead mx-auto" style="color:rgba(255,255,255,0.55);">
+          Here's a rough outline of how our session will flow. We'll adjust the pace to suit you — there's no rush.
+        </p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-7 reveal">
+
+          <div class="timeline-item">
+            <div class="tl-dot">1</div>
+            <div>
+              <div class="tl-time">~10 min</div>
+              <div class="tl-title">Welcome & Setup Check</div>
+              <div class="tl-desc">We make sure everything is installed, log into Claude Desktop together, and you get comfortable with the interface.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-dot">2</div>
+            <div>
+              <div class="tl-time">~15 min</div>
+              <div class="tl-title">Your First Claude Conversation</div>
+              <div class="tl-desc">We explore Claude's capabilities with simple prompts — asking questions, generating text, and understanding how AI thinks and responds.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-dot">3</div>
+            <div>
+              <div class="tl-time">~30 min</div>
+              <div class="tl-title">Building Your Website Together</div>
+              <div class="tl-desc">The heart of our session. You'll tell Claude what you want, and it will write the code, design the layout, and save a real website to your PC — step by step.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-dot">4</div>
+            <div>
+              <div class="tl-time">~15 min</div>
+              <div class="tl-title">Customising & Adding Your Content</div>
+              <div class="tl-desc">You'll personalise the website with your own text, choose colours, and request changes — learning how to refine AI output to match your vision.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-dot">5</div>
+            <div>
+              <div class="tl-time">~10 min</div>
+              <div class="tl-title">Q&A & Your Next Steps</div>
+              <div class="tl-desc">We wrap up with your questions, tips for continuing on your own, and a short list of resources to keep learning after our session ends.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="container text-center reveal">
+      <h2 class="mb-3">Ready to get started?</h2>
+      <p class="mb-4" style="color:rgba(255,255,255,0.8); font-size:1.1rem; max-width:540px; margin-inline:auto;">
+        Complete the preparation steps above and you'll be all set. See you next week, Nontokozo!
+      </p>
+      <a href="https://claude.ai/download" target="_blank" class="cta-btn me-2">
+        <i class="bi-download"></i> Download Claude Desktop
+      </a>
+      <a href="https://claude.ai" target="_blank" class="cta-btn" style="background:rgba(255,255,255,0.15); color:#fff; border: 1px solid rgba(255,255,255,0.3);">
+        <i class="bi-person-circle"></i> Create Your Account
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div class="footer-brand">Impel<span style="color:var(--canvas-primary)">Talent</span></div>
+        <p>Prepared by Kai &nbsp;·&nbsp; Session Guide for Nontokozo &nbsp;·&nbsp; 2026</p>
+        <p><i class="bi-envelope me-1"></i> kai.groeteke@gmail.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Scroll Reveal -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
